@@ -1,14 +1,10 @@
 require("nvchad.configs.lspconfig").defaults()
 
-local lspconfig = require "lspconfig"
+require("mason").setup()
+require("mason-lspconfig").setup()
 
-local servers = { "html", "cssls", "ruff", "pyright", "clangd" }
-local nvlsp = require "nvchad.configs.lspconfig"
-
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
-  }
-end
+require("mason-lspconfig").setup_handlers {
+  function(server_name)
+    require("lspconfig")[server_name].setup {}
+  end,
+}

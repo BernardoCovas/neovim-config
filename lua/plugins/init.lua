@@ -7,15 +7,18 @@ return {
     end
   },
   {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "configs.lspconfig"
-    end,
-  },
-  {
     "lewis6991/gitsigns.nvim",
     config = function()
       require "configs.gitsigns"
     end,
   },
+  "williamboman/mason.nvim",
+  {
+    "williamboman/mason-lspconfig.nvim",
+    event = { "BufReadPre", "BufNewFile", "BufWritePost" },
+    config = function()
+      require "configs.lspconfig"
+    end
+  },
+  "neovim/nvim-lspconfig",
 }
