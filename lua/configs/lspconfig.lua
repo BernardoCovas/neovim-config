@@ -1,10 +1,20 @@
-require("nvchad.configs.lspconfig").defaults()
-
 require("mason").setup()
-require("mason-lspconfig").setup()
 
-require("mason-lspconfig").setup_handlers {
+local nvlsp = require "nvchad.configs.lspconfig"
+local lspconfig = require "lspconfig"
+local mason_lspconfig = require "mason-lspconfig"
+
+mason_lspconfig.setup()
+nvlsp.defaults() -- loads nvchad's defaults
+
+mason_lspconfig.setup_handlers {
   function(server_name)
-    require("lspconfig")[server_name].setup {}
+    lspconfig[server_name].setup {
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+    }
   end,
 }
+
+-- require("nvchad.configs.lspconfig").defaults()
