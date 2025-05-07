@@ -20,5 +20,4 @@ return {
       require "configs.lspconfig"
     end
   },
-  "neovim/nvim-lspconfig",
 }
